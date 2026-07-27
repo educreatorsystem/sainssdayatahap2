@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PEREKODAN PBD</title>
+    <link rel="stylesheet" href="./styles.css?v=20260727-direct-tp-csv-v3-no-localstorage" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="school-brand">
+        <div>
+          <p class="eyebrow">Sistem Rekod Pentaksiran Bilik Darjah</p>
+          <h1>PEREKODAN PBD</h1>
+        </div>
+      </div>
+      <div class="status-pill" id="saveStatus">Sedia digunakan</div>
+    </header>
+
+    <main class="app-shell">
+      <nav class="tabs" aria-label="Navigasi utama">
+        <button class="tab-button active" type="button" data-tab="record">Borang Rekod</button>
+        <button class="tab-button" type="button" data-tab="dashboard">Dashboard Analisis</button>
+      </nav>
+
+      <section class="tab-panel active" id="recordTab">
+        <form class="input-panel" id="recordForm" novalidate>
+          <div class="form-grid">
+            <label>
+              <span>Tarikh</span>
+              <input id="recordDate" type="date" required />
+            </label>
+            <label>
+              <span>Subjek</span>
+              <select id="subjectSelect" required></select>
+            </label>
+            <label>
+              <span>Standard Kandungan</span>
+              <select id="contentSelect" required></select>
+            </label>
+            <label>
+              <span>Kemahiran</span>
+              <select id="skillSelect" required></select>
+            </label>
+            <label>
+              <span>Kelas</span>
+              <select id="classSelect" required></select>
+            </label>
+          </div>
+
+          <fieldset class="learning-panel">
+            <legend>Standard Pembelajaran</legend>
+            <div class="checkbox-grid" id="learningCheckboxes"></div>
+          </fieldset>
+
+          <div class="bulk-actions" aria-label="Tetapan pantas tahap penguasaan">
+            <span>Pilih semua:</span>
+            <button type="button" data-bulk-tp="1">TP 1</button>
+            <button type="button" data-bulk-tp="2">TP 2</button>
+            <button type="button" data-bulk-tp="3">TP 3</button>
+            <button type="button" data-bulk-tp="4">TP 4</button>
+            <button type="button" data-bulk-tp="5">TP 5</button>
+            <button type="button" data-bulk-tp="6">TP 6</button>
+            <button type="button" data-bulk-tp="TD">TD</button>
+          </div>
+
+          <div class="table-wrap">
+            <table class="record-table">
+              <thead>
+                <tr>
+                  <th>Bil</th>
+                  <th>Nama Murid</th>
+                  <th colspan="7">Tahap Penguasaan</th>
+                </tr>
+              </thead>
+              <tbody id="studentRows">
+                <tr>
+                  <td colspan="9" class="empty-state">Pilih kelas untuk memaparkan senarai murid.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-footer">
+            <p id="recordSummary">Tiada murid dipilih.</p>
+            <button class="primary-button" type="submit">Simpan Rekod</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="tab-panel" id="dashboardTab">
+        <div class="dashboard-toolbar">
+          <div class="filter-grid">
+            <label>
+              <span>Tapis Kelas</span>
+              <select id="filterClass"></select>
+            </label>
+            <label>
+              <span>Tapis Subjek</span>
+              <select id="filterSubject"></select>
+            </label>
+            <label>
+              <span>Tapis Standard Kandungan</span>
+              <select id="filterContent"></select>
+            </label>
+            <label>
+              <span>Tapis Standard Pembelajaran</span>
+              <select id="filterLearning"></select>
+            </label>
+            <label>
+              <span>Tarikh Mula</span>
+              <input id="filterStart" type="date" />
+            </label>
+            <label>
+              <span>Tarikh Akhir</span>
+              <input id="filterEnd" type="date" />
+            </label>
+          </div>
+          <div class="toolbar-actions">
+            <button class="secondary-button" type="button" id="resetFilters">Reset Tapisan</button>
+            <button class="primary-button" type="button" onclick="printReport()">Cetak Laporan</button>
+          </div>
+        </div>
+
+        <div class="print-content">
+          <div class="table-wrap report-table-wrap">
+            <table class="analysis-table">
+              <thead id="analysisHead"></thead>
+              <tbody id="analysisBody">
+                <tr>
+                  <td class="empty-state">Belum ada rekod disimpan.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="status-modal" id="statusModal" aria-live="polite" hidden>
+      <div class="status-card" role="status">
+        <div class="status-loader" id="statusLoader"></div>
+        <h2 id="statusTitle">Menyimpan Rekod</h2>
+        <p id="statusMessage">Sila tunggu sebentar.</p>
+        <button class="secondary-button" id="statusClose" type="button" hidden>Tutup</button>
+      </div>
+    </div>
+
+    <script src="./app.js?v=20260727-sp-columns-tooltip-v4"></script>
+  </body>
+</html>
